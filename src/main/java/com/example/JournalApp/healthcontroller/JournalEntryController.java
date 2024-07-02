@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +27,9 @@ public class JournalEntryController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public JournalEntry getById(@PathVariable long id){
+	public ResponseEntity<JournalEntry> getById(@PathVariable long id){
 		JournalEntry journalEntry =entries.get(id);
-		return journalEntry;
+		return ResponseEntity.ok(journalEntry);
 	}
 	
 	@PostMapping("/add")
