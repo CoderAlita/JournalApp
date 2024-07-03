@@ -1,4 +1,4 @@
-package com.example.JournalApp.healthcontroller;
+package com.example.JournalApp.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.JournalApp.entity.JournalEntry;
 
-@RestController("/journal")
+@RestController
+@RequestMapping("/journal")
 public class JournalEntryController {
 	
 	private Map<Long,JournalEntry> entries = new HashMap<>();
@@ -38,7 +40,7 @@ public class JournalEntryController {
 		return journalEntry;
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/id/{id}")
 	public JournalEntry update(@PathVariable long id, @RequestBody JournalEntry journalEntry) {
 		JournalEntry old = entries.get(id);
 		old.setTitle(journalEntry.getTitle());
@@ -46,9 +48,10 @@ public class JournalEntryController {
 		return old;
 	}
 	
-	@DeleteMapping("/delete/{id}")
-	public void removeById(@PathVariable int id) {
-		entries.remove(id);
+	@SuppressWarnings("unlikely-arg-type")
+	@DeleteMapping("/id/{id}")
+	public JournalEntry removeById(@PathVariable long id) {
+		return entries.remove(id);
 	}
 	
 	@DeleteMapping("/delete")
