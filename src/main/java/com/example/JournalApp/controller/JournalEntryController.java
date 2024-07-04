@@ -16,33 +16,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.JournalApp.entity.JournalEntry;
+import com.example.JournalApp.entity.JournalEntryC;
 
 @RestController
 @RequestMapping("/journalc")
 public class JournalEntryController {
 	
-	private Map<String,JournalEntry> entries = new HashMap<>();
+	private Map<String,JournalEntryC> entries = new HashMap<>();
 
 	@GetMapping("/get")
-	public List<JournalEntry> getAll() {
-		return new ArrayList<JournalEntry>(entries.values());
+	public List<JournalEntryC> getAll() {
+		return new ArrayList<JournalEntryC>(entries.values());
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseEntity<JournalEntry> getById(@PathVariable String id){
-		JournalEntry journalEntry =entries.get(id);
+	public ResponseEntity<JournalEntryC> getById(@PathVariable String id){
+		JournalEntryC journalEntry =entries.get(id);
 		return ResponseEntity.ok(journalEntry);
 	}
 	
 	@PostMapping("/add")
-	public JournalEntry add(@RequestBody JournalEntry journalEntry ) {
+	public JournalEntryC add(@RequestBody JournalEntryC journalEntry ) {
 		entries.put(journalEntry.getId(), journalEntry);
 		return journalEntry;
 	}
 	
 	@PutMapping("/id/{id}")
-	public JournalEntry update(@PathVariable String id, @RequestBody JournalEntry journalEntry) {
-		JournalEntry old = entries.get(id);
+	public JournalEntryC update(@PathVariable String id, @RequestBody JournalEntryC journalEntry) {
+		JournalEntryC old = entries.get(id);
 		old.setTitle(journalEntry.getTitle());
 		old.setContent(journalEntry.getContent());
 		return old;
@@ -50,7 +51,7 @@ public class JournalEntryController {
 	
 	@SuppressWarnings("unlikely-arg-type")
 	@DeleteMapping("/id/{id}")
-	public JournalEntry removeById(@PathVariable String id) {
+	public JournalEntryC removeById(@PathVariable String id) {
 		return entries.remove(id);
 	}
 	

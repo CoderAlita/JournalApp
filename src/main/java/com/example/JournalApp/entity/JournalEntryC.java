@@ -1,22 +1,19 @@
 package com.example.JournalApp.entity;
 
-import java.time.LocalDate;
-
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "JournalEntry")
-public class JournalEntry {
+public class JournalEntryC {
 	@Id
-	private ObjectId id;
+	private String id;
 	private String title;
 	private String content;
-	private LocalDate date;
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -30,12 +27,6 @@ public class JournalEntry {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public LocalDate getDate() {
-		return date;
-	}
-	public void setDate(LocalDate date) {
-		this.date = date;
 	}
 	
 	
