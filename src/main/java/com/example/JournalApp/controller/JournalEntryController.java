@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.JournalApp.entity.JournalEntry;
 
 @RestController
-@RequestMapping("/journal")
+@RequestMapping("/journalc")
 public class JournalEntryController {
 	
-	private Map<Long,JournalEntry> entries = new HashMap<>();
+	private Map<String,JournalEntry> entries = new HashMap<>();
 
 	@GetMapping("/get")
 	public List<JournalEntry> getAll() {
@@ -29,7 +29,7 @@ public class JournalEntryController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseEntity<JournalEntry> getById(@PathVariable long id){
+	public ResponseEntity<JournalEntry> getById(@PathVariable String id){
 		JournalEntry journalEntry =entries.get(id);
 		return ResponseEntity.ok(journalEntry);
 	}
@@ -41,7 +41,7 @@ public class JournalEntryController {
 	}
 	
 	@PutMapping("/id/{id}")
-	public JournalEntry update(@PathVariable long id, @RequestBody JournalEntry journalEntry) {
+	public JournalEntry update(@PathVariable String id, @RequestBody JournalEntry journalEntry) {
 		JournalEntry old = entries.get(id);
 		old.setTitle(journalEntry.getTitle());
 		old.setContent(journalEntry.getContent());
@@ -50,7 +50,7 @@ public class JournalEntryController {
 	
 	@SuppressWarnings("unlikely-arg-type")
 	@DeleteMapping("/id/{id}")
-	public JournalEntry removeById(@PathVariable long id) {
+	public JournalEntry removeById(@PathVariable String id) {
 		return entries.remove(id);
 	}
 	

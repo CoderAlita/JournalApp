@@ -19,7 +19,7 @@ public class JournalService {
 		return journalRepository.findAll();
 	}
 	
-	public JournalEntry getById(long id) {
+	public JournalEntry getById(String id) {
 		Optional<JournalEntry> journalEntry=journalRepository.findById(id);
 		return journalEntry.get();
 	}
@@ -28,7 +28,7 @@ public class JournalService {
 		return journalRepository.save(journalEntry);
 	}
 	
-	public JournalEntry update(long id,JournalEntry journalEntry) {
+	public JournalEntry update(String id,JournalEntry journalEntry) {
 		JournalEntry old=journalRepository.findById(id).get();
 		old.setTitle(journalEntry.getTitle());
 		old.setContent(journalEntry.getContent());
@@ -36,7 +36,7 @@ public class JournalService {
 		return journalRepository.save(old);
 	}
 	
-	public void delete(long id) {
+	public void delete(String id) {
 		
 		journalRepository.deleteById(id);
 	}
