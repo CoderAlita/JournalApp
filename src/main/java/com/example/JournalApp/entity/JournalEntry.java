@@ -6,7 +6,10 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Data;
+
 @Document(collection = "JournalEntry")
+//@Data
 public class JournalEntry {
 	@Id
 	private ObjectId id;
@@ -38,6 +41,4 @@ public class JournalEntry {
 		this.date = date;
 	}
 	
-	
-
 }
