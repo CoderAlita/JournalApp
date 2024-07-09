@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.JournalApp.entity.JournalEntry;
 import com.example.JournalApp.entity.Users;
@@ -27,11 +28,13 @@ public class JournalService {
 		return journalRepository.findById(id);
 	}
 	
+	@Transactional
 	public JournalEntry add(String username, JournalEntry journalEntry) {
 		Users byUserName = usersService.findByUserName(username);
 		journalEntry.setDate(LocalDate.now());
 		JournalEntry save = journalRepository.save(journalEntry);
 		byUserName.getJournalEntrys().add(save);
+//		byUserName.setUserName(null);
 		usersService.saveUsers(byUserName);
 		return save;
 	}
@@ -44,7 +47,7 @@ public class JournalService {
 		
 		return journalRepository.save(old);
 	}
-	
+	@Transactional
 	public void delete(ObjectId id, String username) {
 		Users user = usersService.findByUserName(username);
 		user.getJournalEntrys().removeIf(x-> x.getId().equals(id));

@@ -57,6 +57,7 @@ public class JournalDbEntryController {
 			return new ResponseEntity<>(journalEntry1,HttpStatus.CREATED);
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
