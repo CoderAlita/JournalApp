@@ -29,19 +29,13 @@ public class SpringSecurity {
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 	        return http.authorizeHttpRequests(request -> request
-	                        .requestMatchers("/journal/**").authenticated()
-	                        .anyRequest().permitAll())
+	        		.requestMatchers("/public/**").permitAll()
+                    .requestMatchers("/journal/**", "/user/**").authenticated()
+                    .anyRequest().authenticated())
 	                .httpBasic(Customizer.withDefaults())
 	                .csrf(AbstractHttpConfigurer::disable)
 	                .build();
-	    }
-
-//	    @Bean
-//	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//	        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//	    }
-
-	    
+	    } 
 	    
 	    @Bean
 	    public PasswordEncoder passwordEncoder() {

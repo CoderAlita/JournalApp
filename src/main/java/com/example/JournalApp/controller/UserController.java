@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,21 +33,20 @@ public class UserController {
 		List<Users> users = usersService.getAll();
 		return  users;
 	}
-	@GetMapping("/{userName}")
-	public ResponseEntity<Users> findByName(@PathVariable String userName) {
-		Users user = usersService.findByUserName(userName);
+	@GetMapping
+	public ResponseEntity<Users> findByName() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Users user = usersService.findByUserName(authentication.getName());
 		return new ResponseEntity<Users>(user, HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<Users>  add(@RequestBody Users users) {
-		Users users1 = usersService.saveUsers(users);
-		return new ResponseEntity<Users>(users1, HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/{username}")
-	public ResponseEntity<Users>  update(@PathVariable String username,@RequestBody Users user) {
+	@PutMapping
+	public ResponseEntity<Users>  update(@RequestBody Users user) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
 		Users old = usersService.findByUserName(username);
+		
 		if(old !=null) {
 			old.setUserName(user.getUserName());
 			old.setPassword(user.getPassword());
@@ -54,9 +55,11 @@ public class UserController {
 		return new ResponseEntity<Users>(user1, HttpStatus.OK);
 		}
 	
-	@DeleteMapping("{id}")
-	public ResponseEntity<?> delete(@PathVariable ObjectId id) {
-		usersService.delete(id);
+	@DeleteMapping
+	public ResponseEntity<?> delete() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		usersService.deleteByUserName(authentication.getName());
 		return new ResponseEntity<Users>(HttpStatus.NO_CONTENT);
 	}
 
