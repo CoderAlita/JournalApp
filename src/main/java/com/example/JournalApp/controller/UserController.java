@@ -51,7 +51,7 @@ public class UserController {
 			old.setUserName(user.getUserName());
 			old.setPassword(user.getPassword());
 		}
-		Users user1 = usersService.saveUsers(old);
+		Users user1 = usersService.saveNewUsers(old);
 		return new ResponseEntity<Users>(user1, HttpStatus.OK);
 		}
 	

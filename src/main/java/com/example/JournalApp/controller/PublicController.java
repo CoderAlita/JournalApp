@@ -27,7 +27,7 @@ public class PublicController {
 	
 	@PostMapping
 	public ResponseEntity<Users>  add(@RequestBody Users users) {
-		Users users1 = usersService.saveUsers(users);
+		Users users1 = usersService.saveNewUsers(users);
 		return new ResponseEntity<Users>(users1, HttpStatus.CREATED);
 	}
 

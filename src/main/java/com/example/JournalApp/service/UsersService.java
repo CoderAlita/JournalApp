@@ -28,12 +28,16 @@ public class UsersService {
 		return usersRepository.findById(id);
 	}
 	
-	public Users saveUsers(Users users) {
+	public Users saveNewUsers(Users users) {
 		users.setPassword(encoder.encode(users.getPassword()));
 		users.setRoles(Arrays.asList("USER"));
 		return usersRepository.save(users);
 	}
 	
+	public Users saveUsers(Users users) {
+		
+		return usersRepository.save(users);
+	}
 	public void delete(ObjectId id) {
 		
 		usersRepository.deleteById(id);
