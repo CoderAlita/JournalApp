@@ -28,11 +28,6 @@ public class UserController {
 	@Autowired
 	UsersService usersService;
 	
-	@GetMapping("/get")
-	public List<Users> getAll() {
-		List<Users> users = usersService.getAll();
-		return  users;
-	}
 	@GetMapping
 	public ResponseEntity<Users> findByName() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
