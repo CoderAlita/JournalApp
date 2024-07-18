@@ -2,8 +2,11 @@ package com.example.JournalApp.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -28,7 +31,21 @@ public class UserServiceTests {
 	public void findByUseName() {
 		String username = "Ram";
 		Users byUserName = usersRepository.findByUserName(username);
-		Users byUserName1 = usersService.findByUserName(username);
-		assertNotNull(byUserName1);
+		assertNotNull(byUserName);
 	}
+	
+	@Test
+	public void getJournalEntriesTest() {
+		String username = "Amaya ";
+		Users byUserName = usersRepository.findByUserName(username);
+		assertTrue(!byUserName.getJournalEntrys().isEmpty());
+	}
+	
+	@ParameterizedTest
+	@CsvSource({"2,3,6","2,3,5","3,4,7"})
+	public void parameterized(int a, int b, int result) {
+		
+		assertEquals(result,a+b);
+	}
+	
 }
