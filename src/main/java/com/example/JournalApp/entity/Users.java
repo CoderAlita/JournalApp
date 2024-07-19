@@ -11,8 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.mongodb.lang.NonNull;
 
+import lombok.Builder;
 import lombok.Data;
 @Data
+@Builder
 @Document(collection = "Users")
 public class Users {
 	@Id

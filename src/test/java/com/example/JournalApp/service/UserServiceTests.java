@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -46,6 +48,17 @@ public class UserServiceTests {
 	public void parameterized(int a, int b, int result) {
 		
 		assertEquals(result,a+b);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings= {"Ram","Amaya ","Anita","Hari "})
+	public void parameterizedUseNameTest(String username) {
+		assertNotNull(usersRepository.findByUserName(username));
+	}
+	@ParameterizedTest
+	@ArgumentsSource(UserArgumentProvider.class)
+	public void saveUserTest(Users users) {
+		assertNotNull(usersService.saveNewUsers(users));
 	}
 	
 }
