@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://username:password@host/mydatabase?retryWrites=true&w=majority
+      database: JournalDb
+      auto-index-creation : true
+server:
+  port: 9091
