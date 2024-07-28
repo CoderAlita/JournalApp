@@ -21,8 +21,8 @@ import com.example.JournalApp.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@Profile("dev")
-public class SpringSecurity {
+@Profile("prod")
+public class SpringSecurity2 {
 
 	    @Autowired
 	    private UserDetailsServiceImpl userDetailsService;
@@ -31,7 +31,7 @@ public class SpringSecurity {
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 	        return http.authorizeHttpRequests(request -> request
-	        		.requestMatchers("/public/**").permitAll()
+	        		.requestMatchers("/public/**").authenticated()
                     .requestMatchers("/journal/**", "/user/**").authenticated()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated())
