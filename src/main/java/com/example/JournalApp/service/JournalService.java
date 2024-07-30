@@ -15,7 +15,6 @@ import com.example.JournalApp.repository.JournalRepository;
 
 @Service
 public class JournalService {
-	
 	@Autowired
 	private JournalRepository journalRepository;
 	@Autowired
@@ -34,7 +33,6 @@ public class JournalService {
 		journalEntry.setDate(LocalDate.now());
 		JournalEntry save = journalRepository.save(journalEntry);
 		byUserName.getJournalEntrys().add(save);
-//		byUserName.setUserName(null);
 		usersService.saveUsers(byUserName);
 		return save;
 	}
