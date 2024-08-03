@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.JournalApp.api.response.CatResponse;
+import com.example.JournalApp.api.response.CatResponse.Breed;
 import com.example.JournalApp.entity.Users;
+import com.example.JournalApp.service.CatService;
 import com.example.JournalApp.service.UsersService;
 
 @RestController
@@ -27,6 +30,8 @@ public class UserController {
 	
 	@Autowired
 	UsersService usersService;
+	@Autowired
+	CatService catService;
 	
 	@GetMapping
 	public ResponseEntity<Users> findByName() {
@@ -61,7 +66,12 @@ public class UserController {
 	@GetMapping("/greet")
 	public ResponseEntity<?> greeting() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return new ResponseEntity<>("Hi " + authentication.getName(), HttpStatus.OK);
+		CatResponse catResponse = catService.getCatBreed();
+		String response ="";
+		if(catResponse != null) {
+			response =" have this breed's cat " + catResponse.getBreed().getName();
+		}
+		return new ResponseEntity<>("Hi " + authentication.getName() + response ,HttpStatus.OK);
 	}
 
 }
